@@ -1,0 +1,85 @@
+﻿@model HospitalStaffManagement.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+@using ((Html.BeginForm("Edit",
+                        "staffs",
+                        FormMethod.Post, new { enctype = "multipart/form-data" })))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+
+                <div class="text-center text-blue" style="border-style:solid;">
+                    <h2>ویرایش کارمند</h2>
+                </div>
+                <div class="form-horizontal" style="margin-top:15px">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.Id)
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <input class="form-control" id="Name" name="Name" style="width:50%" value="@Model.Name" />
+                            @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <input class="form-control" id="LastName" name="LastName" style="width:50%" value="@Model.LastName" />
+                            @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Mobile, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <input class="form-control" id="Mobile" name="Mobile" style="width:50%" value="@Model.Mobile" />
+                            @Html.ValidationMessageFor(model => model.Mobile, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <input class="form-control" id="Address" name="Address" style="width:50%" value="@Model.Address" />
+                            @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.NationalCode, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <input class="form-control" id="NationalCode" name="NationalCode" style="width:50%" value="@Model.NationalCode" />
+                            @Html.ValidationMessageFor(model => model.NationalCode, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+          
+                    <div class="form-group" style="margin-right:1px;">
+                        @Html.LabelFor(model => model.Url, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <input style="width:600px;margin-right:50px" name="Main_Image" type="file" class="form-control" id="Main_Image_Upload" onchange="setImage()">
+                        <br />
+                        <img id="Main_Image_Show" style="width:170px;height:150px;margin-right:50px" src="~/Upload/Staffs/@Model.Url" />
+                    </div>
+                    <div class="form-group" style="margin-left:90%;">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="ثبت" class="btn btn-success" style="margin-bottom:5px;" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+<div>
+    <a class="btn btn-warning" href="/staffs/Index"> بازگشت</a>
+</div>
+<script>
+    function setImage() {
+        var myURL = window.URL || window.webkitURL;
+        var fileURL = myURL.createObjectURL(Main_Image_Upload.files[0]);
+        Main_Image_Show.src = fileURL;
+    }
+</script>

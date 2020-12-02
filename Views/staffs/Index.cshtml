@@ -1,0 +1,150 @@
+﻿@model IEnumerable<HospitalStaffManagement.Models.ApplicationUser>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="text-center" style="border-style:solid;">
+    <h2 style="font-size:medium">مدیریت کارمندان</h2>
+</div>
+<br />
+<p>
+<p>
+    <a class="btn btn-success" href="../staffs/Create">ثبت جدید</a>
+</p>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="text-center" style="border-style: solid;border-color:darkgray">
+            <h2 style="font-size:medium">جستجو</h2>
+        </div>
+        <div class="box zmdi-border-color" style="height:auto">
+            <div class="box-body table-responsive no-padding row ">
+
+                <div style="width:90%;margin-right:30px;margin-top:20px;">
+                    <div class="row" style="margin-right:5px;">
+                        <div class="row">
+                            @using ((Html.BeginForm("Index", "staffs", FormMethod.Post, new { enctype = "multipart/form-data" })))
+                            {
+                                <label for="exampleInputEmail1"> جستجو :</label>
+                                <input id="searchString" name="searchString" class="" style="width:260px" placeholder="عنوان جستجو را وارد کنید">
+
+                                <button style="margin-right:20px;" type="submit" class="btn btn-success">جستجو یا بارگزاری مجدد  </button>
+                            }
+                        </div>
+                        <div style="margin-top:15px;margin-bottom:5px">
+                            <label for="exampleInputEmail1"> جستجو بر اساس جنسیت :</label>
+                            <select style="width:20%" class="form-control" name="GenderTypeId" id="GenderTypeIdSelect">
+                                <option value="">انتخاب کنید</option>
+                                <option value="0">آقا</option>
+                                <option value="1">خانم</option>                         
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover text-center">
+                    <tr>
+                        <th>
+                            نام
+                        </th>
+
+                        <th>
+                            نام خانوادگی
+                        </th>
+                        <th>
+                            شماره ملی
+                        </th>
+                        <th>
+                            شماره همراه
+                        </th>
+                        <th>
+                            جنسیت
+                        </th>
+                        <th>
+                            عکس پرسنلی
+                        </th>
+                        <th>
+                            نام کاربری
+                        </th>
+                        <th>
+                            رمز عبور 
+                        </th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (var item in Model)
+                    {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NationalCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Mobile)
+                    </td>
+
+                    @{
+                        if (item.Gender == HospitalStaffManagement.Models.Gender.Male)
+                        {
+                            <td>
+                                آقا
+                            </td>
+                        }
+                        else if (item.Gender == HospitalStaffManagement.Models.Gender.Female)
+                        {
+                            <td>
+                                خانم
+                            </td>
+                        }
+                    }
+                    <td>
+                        <img style="width:60px;height:50px;" src="~/Upload/Staffs/@item.Url" />
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DecriptPass)
+
+                    </td>
+                    <td>
+                        <a class="btn btn-primary" href="/staffs/Edit/@item.Id"> ویرایش</a> |
+                        <a class="btn btn-danger" href="/staffs/Delete/@item.Id"> حذف</a>
+                    </td>
+                </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@using ((Html.BeginForm("Index", "staffs", FormMethod.Post, new { enctype = "multipart/form-data", @id = "frmGender" })))
+{
+    <input id="GenderTypeIdval" name="GenderType" hidden />
+}
+<script>
+    window.onload = Load;
+	function Load() {
+        $("#GenderTypeIdSelect").change(function () {
+            var Id = $('#GenderTypeIdSelect').find('option:selected').val()
+            $("#GenderTypeIdval").val(Id);
+            $("#frmGender").submit();
+        });
+    }
+</script>

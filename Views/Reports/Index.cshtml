@@ -1,0 +1,235 @@
+﻿@model IEnumerable<HospitalStaffManagement.Models.Patients>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="text-center" style="border-style:solid;">
+    <h2 style="font-size:medium">گزارش جامع سازمان</h2>
+</div>
+<br />
+<p>
+    <div class="row" >
+        <div class="col-xs-12">
+            <div class="box" style="height:550px">
+                <div class="box-body table-responsive no-padding">
+
+                    @using ((Html.BeginForm("Index",
+                                            "Reports",
+                                            FormMethod.Post, new { enctype = "multipart/form-data", @id = "frmReport" })))
+                    {
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <div style="margin-top:20px;">
+
+                            <input class="form-control" name="TakeOffDate1" id="TakeOffDate1" style="width:40%;margin-top:10px;margin-right:130px;" placeholder="از تاریخ" />
+                            <input class="form-control" name="TakeOffDate2" id="TakeOffDate2" style="width:40%;margin-top:10px;margin-right:130px;" placeholder="تا تاریخ" />
+
+                        </div>
+
+
+                        <div style="width:70%;margin-right:30px;margin-top:20px;">
+                            <div class="form-group" style="margin-right:85px">
+                                <label class="control-label col-md-2">
+                                    اعمال فیلتر بر اساس جنسیت
+                                </label>
+                                <div class="col-md-10">
+                                    <select style="width:50%" class="form-control" name="Gender" id="Gender">
+                                        <option value="3">انتخاب کنید</option>
+                                        <option value="0">آقا</option>
+                                        <option value="1">خانم</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="width:70%;margin-right:30px;margin-top:80px;">
+                            <div class="form-group" style="margin-right:85px">
+                                <label class="control-label col-md-2">
+                                    اعمال فیلتر بر اساس وضعیت بیماری
+                                </label>
+                                <div class="col-md-10">
+                                    <select style="width:50%" class="form-control" name="State" id="State">
+                                        <option value="3">بر اساس همه موارد</option>
+                                        <option value="0">وخیم</option>
+                                        <option value="1">هشدار</option>
+                                        <option value="2">بهبودیافته</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="width:70%;margin-right:30px;margin-top:180px;">
+                            <div class="form-group" style="margin-right:85px">
+                                <label class="control-label col-md-2">
+                                    نوع گزارش را تعیین کنید
+                                </label>
+                                <div class="col-md-10">
+                                    <select style="width:50%" class="form-control" name="ReportType" id="ReportType">
+                                        <option value="3">بر اساس همه موارد</option>
+                                        <option value="0">داروی تجویزی</option>
+                                        <option value="1">علائم بیماری</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="width:70%;margin-right:30px;margin-top:280px;">
+                            <div class="form-group" style="margin-right:85px">
+
+                                <input class="form-control" name="txtsearch" id="txtsearch" style="width:40%;margin-top:10px;margin-right:130px;" placeholder="مقدار جستجو را وارد کنید " />
+                            </div>
+                        </div>
+
+                        <div style="margin-top:50px">
+
+                            <button type="button" onclick="GetReport();" class="btn btn-primary" style="margin-top:10px">گزارش</button>
+                            <a class="btn btn-primary" style="margin-top:10px" href="/Reports/Index">بارگزاری مجدد</a>
+                        </div>
+                        <div style="margin-top:10px;margin-right:5px">
+                            @ViewBag.count
+                        </div>
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body table-responsive no-padding">
+                    <table class="table table-hover text-center">
+                        <tr>
+                            <th>
+                                نام
+                            </th>
+
+                            <th>
+                                نام خانوادگی
+                            </th>
+
+                            <th>
+                                شماره همراه
+                            </th>
+                            <th>
+                                جنسیت
+                            </th>
+                            <th>
+                                عکس پرسنلی
+                            </th>
+                            <th>
+                                سن
+                            </th>
+                            <th>
+                                وضعیت فعلی
+                            </th>
+                            <th>
+                                علائم بیماری
+                            </th>
+                            <th>
+                                سوابق بیماری
+                            </th>
+                            <th>
+                                داروهای تجویزی
+                            </th>
+                            <th>ثبت توسط</th>
+                            <th>تاریخ ثبت</th>
+
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LastName)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Mobile)
+                        </td>
+
+                        @{
+                            if (item.gender == HospitalStaffManagement.Models.Gender.Male)
+                            {
+                                <td>
+                                    آقا
+                                </td>
+                            }
+                            else if (item.gender == HospitalStaffManagement.Models.Gender.Female)
+                            {
+                                <td>
+                                    خانم
+                                </td>
+                            }
+                        }
+                        <td>
+                            <img style="width:60px;height:50px;" src="~/Upload/Patients/@item.Url" />
+
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.old) سال
+                        </td>
+                        @{
+                            if (item.State == HospitalStaffManagement.Models.State.Bad)
+                            {
+                                <td style="background-color:red;color:aliceblue">
+                                    وخیم
+                                </td>
+                            }
+                            else if (item.State == HospitalStaffManagement.Models.State.Alert)
+                            {
+                                <td style="background-color:yellow;color:aliceblue">
+                                    هشدار
+                                </td>
+                            }
+                            else
+                            {
+                                <td style="background-color:forestgreen;color:aliceblue">
+                                    بهبود یافته
+                                </td>
+
+                            }
+                        }
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DiseaseRecords)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DossierSickness)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PrescribedDrugs)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StaffCreatorFullName)
+                        </td>
+                        <td>
+                            @HospitalStaffManagement.Utility.DateChanger.ToPersianDateString(item.CreateDate)
+                        </td>
+                    </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $("#TakeOffDate1").datepicker();
+            $("#TakeOffDate2").datepicker();
+
+		});
+
+
+		function GetReport() {
+			if ($("#TakeOffDate1").val() == "" || $("#TakeOffDate2").val() == "") {
+				alert("لطفا بازه تاریخی را انتخاب نمایید");
+				return;
+			}
+			else {
+				$("#frmReport").submit();
+			}
+		}
+    </script>
+
+

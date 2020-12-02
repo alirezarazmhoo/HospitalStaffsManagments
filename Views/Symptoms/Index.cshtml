@@ -1,0 +1,70 @@
+﻿@model IEnumerable<HospitalStaffManagement.Models.Symptoms>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="text-center" style="border-style:solid;">
+    <h2 style="font-size:medium">علائم بیماری </h2>
+</div>
+<br />
+<p>
+<p>
+    <a class="btn btn-success" href="../Symptoms/Create">ثبت جدید</a>
+</p>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="text-center" style="border-style: solid;border-color:darkgray">
+            <h2 style="font-size:medium">جستجو</h2>
+        </div>
+        <div class="box zmdi-border-color" style="height:auto">
+            <div class="box-body table-responsive no-padding row ">
+
+                <div style="width:90%;margin-right:30px;margin-top:20px;">
+                    <div class="row" style="margin-right:5px;">
+                        <div class="row">
+                            @using ((Html.BeginForm("Index", "Symptoms", FormMethod.Post, new { enctype = "multipart/form-data" })))
+                            {
+                                <label for="exampleInputEmail1"> جستجو :</label>
+                                <input id="searchString" name="searchString" class="" style="width:260px" placeholder="عنوان جستجو را وارد کنید">
+
+                                <button style="margin-right:20px;" type="submit" class="btn btn-success">جستجو یا بارگزاری مجدد  </button>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover text-center">
+                    <tr>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Name)
+                        </th>
+                        <th>امکانات</th>
+                    </tr>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                <a class="btn btn-primary" href="/Symptoms/Edit/@item.Id"> ویرایش</a> |
+                                <a class="btn btn-danger" href="/Symptoms/Delete/@item.Id"> حذف</a>
+                            </td>
+                        </tr>
+                    }
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

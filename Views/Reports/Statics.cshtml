@@ -1,0 +1,71 @@
+﻿@model HospitalStaffManagement.Models.ReportViewMode
+@{
+    ViewBag.Title = "Statics";
+}
+
+<div class="text-center" style="border-style:solid;">
+    <h2 style="font-size:medium">گزارش آماری سازمان </h2>
+</div>
+<br />
+
+
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-body table-responsive no-padding">
+                <table class="table table-hover text-center">
+                    <tr>
+                        <th>
+                            تعداد  کارمندان
+                        </th>
+                        <th>
+                            تعداد   بیماران
+                        </th>
+                        <th>
+                            تعداد بهبود یافتگان
+                        </th>
+                        <th>
+                            تعداد بیماران در وضعیت هشدار
+                        </th>
+                        <th>
+                            تعداد بیماران در وضعیت وخیم
+                        </th>
+                        <th>
+                            تعداد بیماران آقا
+                        </th>
+                        <th>
+                            تعداد بیماران خانم
+                        </th>
+                    </tr>
+
+
+                    <tr>
+                        <td>
+                            @Model.StafCount نفر
+                        </td>
+                        <td>
+                            @Model.PatientCount نفر
+                        </td>
+                        <td>
+                            @Model.GoodCount نفر
+                        </td>
+                        <td>
+                            @Model.WarningCount نفر
+                        </td>
+                        <td>
+                            @Model.BadCount نفر
+                        </td>
+                        <td>
+                            @Model.MenCount نفر
+                        </td>
+                        <td>
+                            @Model.WomanCount نفر
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>صفحه شروع | کنترل پنل</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.7 -->
+    <link rel="stylesheet" href="~/Content/Admin/dist/css/bootstrap-theme.css">
+    <!-- Bootstrap rtl -->
+    <link rel="stylesheet" href="~/Content/Admin/dist/css/rtl.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/Content/Admin/bower_components/font-awesome/css/font-awesome.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="~/Content/Admin/bower_components/Ionicons/css/ionicons.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/Content/Admin/dist/css/AdminLTE.css">
+
+
+
+    <link href="~/Css/jquery-ui.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/Content/Admin/dist/css/skins/skin-blue.min.css">
+    <link href="~/Css/jquery-ui.css" rel="stylesheet" />
+    <link href="~/Css/jquery-ui-datetimepicker.min.css" rel="stylesheet" />
+    
+    <script src="~/Content/scripts/PersianDateTimePicker/jquery-ui-datetimepicker.min.js"></script>
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    @RenderSection("head", false)
+</head>
+
+<body class="hold-transition skin-blue sidebar-mini" sty>
+    <div class="wrapper">
+        <header class="main-header">
+            <a class="logo">
+                <span class="logo-mini">پنل</span>
+                <span class="logo-lg"><b>کنترل پنل مدیریت پرسنل بیمارستان</b></span>
+            </a>
+            <nav class="navbar navbar-static-top">
+                <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                    <span class="sr-only">Toggle navigation</span>
+                </a>
+            </nav>
+        </header>
+        <aside class="main-sidebar">
+            <section class="sidebar">
+                <div class="user-panel" style="height:40px;">
+
+                    <div class="pull-right info">
+                          
+                                <p style="text-align:right;margin-left:80px">@User.Identity.Name</p>
+                            
+
+                        </div>
+                </div>
+                <ul class="sidebar-menu" data-widget="tree">
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li class="active"><a href="/staffs/Index"><i class="fa fa-user"></i> <span>کارمندان </span></a></li>
+    
+
+                    }
+                    <li class="active"><a href="/patients/Index"><i class="fa fa-user"></i> <span>بیماران </span></a></li>
+                    @if (User.IsInRole("Admin"))
+                    {                     
+                        <li class="active"><a href="/Reports/Index"><i class="fa fa-bar-chart"></i> <span>گزارش گیری جامع </span></a></li>
+                        <li class="active"><a href="/Reports/Statics"><i class="fa fa-calculator"></i> <span>گزارش گیری آماری </span></a></li>
+                    }
+
+                    @*<li class="active"><a href="../Symptoms/Index"><i class="fa fa-users"></i> <span>علائم بیماری</span></a></li>*@
+                    <li class="active"><a href="/Account/LogOff"><i class="fa fa-sign-out"></i> <span>خروج</span></a></li>
+                </ul>
+            </section>
+        </aside>
+        <div class="content-wrapper">
+
+            <section class="content container-fluid">
+                <script src="~/Content/scripts/jquery-1.10.2.min.js"></script>
+                <script src="~/Content/scripts/jquery-ui.js"></script>
+                <script src="~/Content/scripts/PersianDateTimePicker/jquery-ui-datetimepicker.min.js"></script>
+                @RenderBody()
+            </section>
+            <div class="modal"><!-- Place at bottom of page --></div>
+
+        </div>
+        <aside class="control-sidebar control-sidebar-dark">
+            <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+                <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-home"></i></a></li>
+                <li><a href="#control-sidebar-settings-tab" data-toggle="tab"><i class="fa fa-gears"></i></a></li>
+            </ul>
+        </aside>
+        <div class="control-sidebar-bg"></div>
+    </div>
+
+    @*<script src="~/Content/Admin/bower_components/jquery/dist/jquery.min.js"></script>*@
+    <script src="~/Content/Admin/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/Content/Admin/dist/js/adminlte.min.js"></script>
+</body>
+</html>
